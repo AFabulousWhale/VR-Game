@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{2633A58A-61FE-B6EC-A1D8-A288975AB334}</ProjectGuid>
+    <ProjectGuid>{249905A0-E4C5-3FB5-B32F-FBB37FFCA7CA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.XR.Management.Samples</AssemblyName>
@@ -56,8 +56,8 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Samples\XR Plugin Management\4.2.1\Example XR Management implementation\SampleConstants.cs" />
     <Compile Include="Assets\Samples\XR Plugin Management\4.2.1\Example XR Management implementation\SampleSettings.cs" />
+    <Compile Include="Assets\Samples\XR Plugin Management\4.2.1\Example XR Management implementation\SampleConstants.cs" />
     <Compile Include="Assets\Samples\XR Plugin Management\4.2.1\Example XR Management implementation\SampleLoader.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{58BE8AFE-1602-F457-FCF9-0DFD432A0C95}</ProjectGuid>
+    <ProjectGuid>{973A0500-4AC6-9CED-2A41-A039634A0228}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.XR.Management.Samples.Editor</AssemblyName>
@@ -56,10 +56,10 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Samples\XR Plugin Management\4.2.1\Example XR Management implementation\Editor\SampleStandaloneLoaderUI.cs" />
     <Compile Include="Assets\Samples\XR Plugin Management\4.2.1\Example XR Management implementation\Editor\SampleMetadata.cs" />
-    <Compile Include="Assets\Samples\XR Plugin Management\4.2.1\Example XR Management implementation\Editor\SampleSettingsEditor.cs" />
+    <Compile Include="Assets\Samples\XR Plugin Management\4.2.1\Example XR Management implementation\Editor\SampleStandaloneLoaderUI.cs" />
     <Compile Include="Assets\Samples\XR Plugin Management\4.2.1\Example XR Management implementation\Editor\SampleBuildProcessor.cs" />
+    <Compile Include="Assets\Samples\XR Plugin Management\4.2.1\Example XR Management implementation\Editor\SampleSettingsEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Samples\XR Plugin Management\4.2.1\Example XR Management implementation\Editor\Unity.XR.Management.Samples.Editor.asmdef" />
@@ -746,7 +746,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.XR.Management.Samples.csproj">
-      <Project>{2633A58A-61FE-B6EC-A1D8-A288975AB334}</Project>
+      <Project>{249905A0-E4C5-3FB5-B32F-FBB37FFCA7CA}</Project>
       <Name>Unity.XR.Management.Samples</Name>
     </ProjectReference>
   </ItemGroup>
