@@ -1,0 +1,9 @@
+UserSettings/
+.vsconfig
+Library/
+Temp/
+Logs/
+2.5D-Platformer-Artefact.sln
+Assembly-CSharp.csproj
+obj/
+.vs/
