@@ -69,6 +69,7 @@ public class HandManager : MonoBehaviour
         inputDevice.TryGetFeatureValue(CommonUsages.primaryTouch, out bool primaryTouched);
         inputDevice.TryGetFeatureValue(CommonUsages.secondaryTouch, out bool secondaryTouched);
 
+        //if you're touching the buttons on the controller it'll detect thumb input
         if (primaryTouched || secondaryTouched)
         {
             thumbValue += thumbMoveSpeed;

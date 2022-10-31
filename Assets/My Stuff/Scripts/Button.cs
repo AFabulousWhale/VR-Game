@@ -5,34 +5,35 @@ using UnityEngine.Events;
 
 public class Button : MonoBehaviour
 {
-    public UnityEvent onPress;
-    public UnityEvent onRelease;
-    bool isPressed = false;
-    GameObject presser;
+    //using unity event systems so it can call other functions when pressed/released
+    public UnityEvent onPress, onRelease;
+    bool deadTimeActive = false;
+    float deadTime = 0.4f;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isPressed)
+        if (other.tag == "Button" && !deadTimeActive)
         {
-            presser = other.gameObject;
-            this.transform.localPosition = new Vector3(0.01312256f, 0, 0);
-            isPressed = true;
+            Debug.Log($"{this.gameObject} has been pressed");
             onPress.Invoke();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == presser && isPressed)
+        if (other.tag == "Button" && !deadTimeActive)
         {
-            this.transform.localPosition = new Vector3(0, 0, 0);
-            isPressed = false;
+            Debug.Log($"{this.gameObject} has been released");
             onRelease.Invoke();
+            StartCoroutine(WaitForDeadTime());
         }
     }
 
-    public void Test()
+    //locks button activity for X seconds so it cannot be pressed constantly
+    IEnumerator WaitForDeadTime()
     {
-        Debug.Log($"pressed {this.gameObject}");
+        deadTimeActive = true;
+        yield return new WaitForSeconds(deadTime);
+        deadTimeActive = false;
     }
 }
