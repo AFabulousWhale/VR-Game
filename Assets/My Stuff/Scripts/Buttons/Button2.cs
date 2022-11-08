@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class Button : MonoBehaviour
+public class Button2 : ButtonChecker
 {
-    //using unity event systems so it can call other functions when pressed/released
-    public UnityEvent onPress, onRelease;
     bool deadTimeActive = false;
     float deadTime = 0.4f;
 
@@ -15,7 +12,7 @@ public class Button : MonoBehaviour
         if (other.tag == "Button" && !deadTimeActive)
         {
             Debug.Log($"{this.gameObject} has been pressed");
-            onPress.Invoke();
+            base.AddNumber(2);
         }
     }
 
@@ -24,7 +21,6 @@ public class Button : MonoBehaviour
         if (other.tag == "Button" && !deadTimeActive)
         {
             Debug.Log($"{this.gameObject} has been released");
-            onRelease.Invoke();
             StartCoroutine(WaitForDeadTime());
         }
     }
