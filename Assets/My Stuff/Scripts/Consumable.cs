@@ -16,6 +16,7 @@ public class Consumable : MonoBehaviour
         SetVisuals();
     }
 
+    //for testing without the VR headset - can call the function from the inspector
     [ContextMenu("Consume")]
 
     public void Consume()
