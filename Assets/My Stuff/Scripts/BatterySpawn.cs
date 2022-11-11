@@ -27,6 +27,6 @@ public class BatterySpawn : MonoBehaviour
         Destroy(newItem);
         newItem = Instantiate(battery, this.transform.position, Quaternion.identity);
         Rigidbody rb = newItem.GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 5);
+        rb.AddForce(transform.forward * 500);
     }
 }
