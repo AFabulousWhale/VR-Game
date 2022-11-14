@@ -7,6 +7,7 @@ TagManager:
   - RoomLight
   - Button
   - Drawers
+  - Screw
   layers:
   - Default
   - TransparentFX
