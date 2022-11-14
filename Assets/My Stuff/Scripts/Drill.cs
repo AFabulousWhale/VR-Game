@@ -37,6 +37,7 @@ public class Drill : MonoBehaviour
         }
     }
 
+    //this is called when the drill is activated by the player's use
     public void Activated()
     {
         drillActivated = true;

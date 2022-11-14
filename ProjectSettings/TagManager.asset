@@ -8,6 +8,7 @@ TagManager:
   - Button
   - Drawers
   - Screw
+  - Stick
   layers:
   - Default
   - TransparentFX
