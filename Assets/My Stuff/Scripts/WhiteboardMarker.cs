@@ -15,11 +15,13 @@ public class WhiteboardMarker : MonoBehaviour
 
     RaycastHit touch;
 
-    public Whiteboard whiteboard;
+    Whiteboard whiteboard;
     Vector2 touchPos, lastTouchPos;
     bool touchedLastFrame = true;
 
     Quaternion lastTouchRot;
+
+    bool once = false;
 
     void Start()
     {
@@ -43,6 +45,11 @@ public class WhiteboardMarker : MonoBehaviour
         {
             if (touch.transform.tag == "Whiteboard")
             {
+                if(!once)
+                {
+                    whiteboard = touch.transform.GetComponent<Whiteboard>();
+                    once = true;
+                }
                 Debug.Log("hitW");
                 //grabs the touch position that you touch the pen to the whiteboard
                 touchPos = new Vector3(touch.textureCoord.x, touch.textureCoord.y);
@@ -81,6 +88,7 @@ public class WhiteboardMarker : MonoBehaviour
                 return;
             }
         }
+        once = false;
         touchedLastFrame = false;
     }
 }
