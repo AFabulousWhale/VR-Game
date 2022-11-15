@@ -8,7 +8,7 @@ TagManager:
   - Button
   - Drawers
   - Screw
-  - Stick
+  - Whiteboard
   layers:
   - Default
   - TransparentFX
@@ -21,7 +21,7 @@ TagManager:
   - Hands
   - Desk
   - Post-Processing
-  - 
+  - Pens
   - 
   - 
   - 
