@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 26ec233ea6327474b8c4eb6ebf4ba915
+guid: a0da6884aa7754d408bcda1b5073dd7f
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - KBanAvoxlost
+  - Cafe Francoise
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
