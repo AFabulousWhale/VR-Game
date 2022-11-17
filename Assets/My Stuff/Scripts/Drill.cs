@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Drill : MonoBehaviour
 {
     public bool drillActivated;
-    public bool unScrewing;
 
     GameObject currentScrew;
     public GameObject vent;
@@ -17,24 +17,21 @@ public class Drill : MonoBehaviour
         {
             this.transform.Rotate(Vector3.right * (600 * Time.deltaTime));
         } 
-        if(unScrewing)
-        {
-            currentScrew.transform.Rotate(Vector3.right * (450 * Time.deltaTime));
-            Vector3 newPos = new Vector3(29.7163f, currentScrew.transform.position.y, currentScrew.transform.position.z);
-            currentScrew.transform.position = Vector3.MoveTowards(currentScrew.transform.position, newPos, Time.deltaTime);
-
-            if(currentScrew.transform.position == newPos)
-            {
-                currentScrew.GetComponent<Rigidbody>().isKinematic = false;
-                screwsUnscrewed++;
-                unScrewing = false;
-            }
-        }
 
         if(screwsUnscrewed == 4)
         {
             vent.GetComponent<Rigidbody>().isKinematic = false;
+            vent.GetComponent<XRGrabInteractable>().enabled = true;
         }
+    }
+
+    IEnumerator UnScrew()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Rigidbody rb = currentScrew.GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+        rb.AddForce(transform.forward * 500);
+        screwsUnscrewed++;
     }
 
     //this is called when the drill is activated by the player's use
@@ -53,11 +50,7 @@ public class Drill : MonoBehaviour
         if(other.tag == "Screw" && drillActivated)
         {
             currentScrew = other.gameObject;
-            unScrewing = true;
-        }
-        else
-        {
-            unScrewing = false;
+            StartCoroutine(UnScrew());
         }
     }
 }

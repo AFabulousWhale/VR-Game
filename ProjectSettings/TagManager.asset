@@ -9,6 +9,8 @@ TagManager:
   - Drawers
   - Screw
   - Whiteboard
+  - BlueWire
+  - RedWire
   layers:
   - Default
   - TransparentFX

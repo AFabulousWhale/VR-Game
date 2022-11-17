@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class WireCutterUse : MonoBehaviour
 {
+    public bool activated;
+    public GameObject blackoutPP;
+
     //these are triggered by the activation on the wire cutter in the XR Grabable component script using unity events
     public void ActivateTrigger()
     {
@@ -15,6 +18,7 @@ public class WireCutterUse : MonoBehaviour
     }
     public IEnumerator Activate()
     {
+        activated = true;
         //cycling through all the children
         //repeats 10 times
         for (int i = 0; i < 10; i++)
@@ -34,18 +38,6 @@ public class WireCutterUse : MonoBehaviour
                     child.transform.Rotate(rotationToAdd);
                     //rotate 10
                 }
-
-                //moving so the parts are connected more
-                if (child.name == "Right_Back" || child.name == "Left_Back")
-                {
-                    Vector3 toMove = new Vector3(child.transform.position.x, child.transform.position.y, child.transform.position.z + 0.00573216f);
-                    child.transform.position = toMove;
-                }
-                if (child.name == "Right_Front" || child.name == "Left_Front")
-                {
-                    Vector3 toMove = new Vector3(child.transform.position.x, child.transform.position.y, child.transform.position.z - 0.00576782f);
-                    child.transform.position = toMove;
-                }
             }
             yield return new WaitForSeconds(0.01f);
         }
@@ -53,6 +45,7 @@ public class WireCutterUse : MonoBehaviour
 
     public IEnumerator Deactivate()
     {
+        activated = false;
         //cycling through all the children
         //repeats 10 times
         for (int i = 0; i < 10; i++)
@@ -69,20 +62,36 @@ public class WireCutterUse : MonoBehaviour
                     Vector3 rotationToAdd = new Vector3(0, -1, 0);
                     child.transform.Rotate(rotationToAdd);
                 }
-
-                if (child.name == "Right_Back" || child.name == "Left_Back")
-                {
-                    Vector3 toMove = new Vector3(child.transform.position.x, child.transform.position.y, child.transform.position.z - 0.00573216f);
-                    child.transform.position = toMove;
-                }
-                if (child.name == "Right_Front" || child.name == "Left_Front")
-                {
-                    Vector3 toMove = new Vector3(child.transform.position.x, child.transform.position.y, child.transform.position.z + 0.00576782f);
-                    child.transform.position = toMove;
-                }
             }
 
             yield return new WaitForSeconds(0.01f);
         }
+    }
+
+
+    bool blackout = false;
+    void OnTriggerEnter(Collider other)
+    {
+        if (activated)
+        {
+            if (other.tag == "RedWire")
+            {
+                //correct - just drop wire
+            }
+            if (other.tag == "BlueWire" && !blackout)
+            {
+                StartCoroutine(Blackout());
+                //5 second blackout
+            }
+        }
+    }
+
+    IEnumerator Blackout()
+    {
+        blackout = true;
+        blackoutPP.gameObject.SetActive(true);
+        yield return new WaitForSeconds(5);
+        blackout = false;
+        blackoutPP.gameObject.SetActive(false);
     }
 }
