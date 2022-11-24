@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
 using CodeMonkey.Utils;
+using System;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Reflection;
 
 public class Grid
 {
@@ -12,6 +16,9 @@ public class Grid
     TextMesh[,] debugTextArray;
     float cellSize;
     Vector3 originPosition;
+
+    public List<Tuple<int, int>> desiredCoords = new List<Tuple<int, int>>();
+    public List<Tuple<int, int>> playerCoords = new List<Tuple<int, int>>();
 
     //using a constructor to declare these variables for the overall grid values
     public Grid(int width, int height, float cellSize, Vector3 originPosition)
@@ -58,6 +65,8 @@ public class Grid
         if(x>= 0 && y >=0 && x < width && y < height)
         {
             gridArray[x, y] = value;
+            playerCoords.Add(new Tuple<int, int>(x, y));
+            Debug.Log($"{x} {y}");
             debugTextArray[x, y].text = value.ToString();
         }
     }
