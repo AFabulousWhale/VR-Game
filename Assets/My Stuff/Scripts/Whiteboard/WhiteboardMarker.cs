@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+
 
 public class WhiteboardMarker : MonoBehaviour
 {
@@ -23,8 +26,19 @@ public class WhiteboardMarker : MonoBehaviour
 
     bool once = false;
 
+
+    public GameObject grid;
+    GridLayout gridLayout;
+
+    public List<Vector3Int> desiredCoords = new List<Vector3Int>();
+    public List<Vector3Int> playerCoords = new List<Vector3Int>();
+
     void Start()
     {
+        AddDesiredCoords();
+        grid = GameObject.Find("Grid");
+        gridLayout = grid.GetComponent<GridLayout>();
+
         //this is to get the pen colour (red in this case)
         _renderer = penTip.GetComponent<Renderer>();
 
@@ -35,6 +49,47 @@ public class WhiteboardMarker : MonoBehaviour
     void Update()
     {
         Draw();
+
+        if(checkCoords())
+        {
+            Debug.Log("YES");
+        }
+    }
+
+    void AddDesiredCoords() //all the desired coords are the cell spaces where there is a dot that needs to be joined within the drawing by the player to complete the puzzle
+    {
+        //in order from 1-31 coords
+        desiredCoords.Add(new Vector3Int(22,24));
+        desiredCoords.Add(new Vector3Int(21, 23));
+        desiredCoords.Add(new Vector3Int(20, 23));
+        desiredCoords.Add(new Vector3Int(22, 22));
+        desiredCoords.Add(new Vector3Int(24, 20));
+        desiredCoords.Add(new Vector3Int(23, 19));
+        desiredCoords.Add(new Vector3Int(22, 19));
+        desiredCoords.Add(new Vector3Int(24, 18));
+        desiredCoords.Add(new Vector3Int(26, 16));
+        desiredCoords.Add(new Vector3Int(23, 15));
+        desiredCoords.Add(new Vector3Int(21, 13));
+        desiredCoords.Add(new Vector3Int(22, 11));
+        desiredCoords.Add(new Vector3Int(23, 10));
+        desiredCoords.Add(new Vector3Int(20, 9));
+        desiredCoords.Add(new Vector3Int(17, 8));
+        desiredCoords.Add(new Vector3Int(18, 7));
+        desiredCoords.Add(new Vector3Int(17, 6));
+        desiredCoords.Add(new Vector3Int(12, 6));
+        desiredCoords.Add(new Vector3Int(6, 8));
+        desiredCoords.Add(new Vector3Int(3, 12));
+        desiredCoords.Add(new Vector3Int(3, 17));
+        desiredCoords.Add(new Vector3Int(6, 22));
+        desiredCoords.Add(new Vector3Int(12, 15));
+        desiredCoords.Add(new Vector3Int(18, 26));
+        desiredCoords.Add(new Vector3Int(21, 15));
+        desiredCoords.Add(new Vector3Int(26, 24));
+        desiredCoords.Add(new Vector3Int(30, 21));
+        desiredCoords.Add(new Vector3Int(31, 17));
+        desiredCoords.Add(new Vector3Int(30, 13));
+        desiredCoords.Add(new Vector3Int(27, 9));
+        desiredCoords.Add(new Vector3Int(21, 7));
     }
 
     void Draw()
@@ -76,6 +131,14 @@ public class WhiteboardMarker : MonoBehaviour
                         var lerpY = (int)Mathf.Lerp(lastTouchPos.y, y, i);
                         whiteboard.penTexture.SetPixels(lerpX, lerpY, penSize, penSize, colors);
                     }
+                    //sets that position on the grid to where the marker is
+                    Vector3 gridTouch = new Vector3(0.970644f, touchPos.y, touchPos.x);
+                    Vector3Int cellPosition = gridLayout.WorldToCell(gridTouch);
+
+                    if (!playerCoords.Contains(cellPosition)) //if the list doesn't already contain this position then add it
+                    {
+                        playerCoords.Add(cellPosition);
+                    }
 
                     //locks the rotation so the pen doesn't push against the whiteboard
                     transform.rotation = lastTouchRot;
@@ -90,5 +153,10 @@ public class WhiteboardMarker : MonoBehaviour
         }
         once = false;
         touchedLastFrame = false;
+    }
+
+    private bool checkCoords()
+    {
+        return desiredCoords.Intersect(playerCoords).Count() == desiredCoords.Count();
     }
 }

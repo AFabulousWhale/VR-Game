@@ -12,11 +12,11 @@ public class WinLose : MonoBehaviour
 
     void Update()
     {
-        if (timer.time <= 0)
-        {
-            Debug.Log("You lose");
-            SceneManager.LoadScene("Lose");
-        }
+        //if (timer.time <= 0)
+        //{
+        //    Debug.Log("You lose");
+        //    SceneManager.LoadScene("Lose");
+        //}
     }
 
     public void OnTriggerEnter(Collider other)
