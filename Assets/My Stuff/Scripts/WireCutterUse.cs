@@ -76,12 +76,12 @@ public class WireCutterUse : MonoBehaviour
         {
             if (other.tag == "RedWire")
             {
-                //correct - just drop wire
+                other.GetComponent<Rigidbody>().isKinematic = false;
             }
             if (other.tag == "BlueWire" && !blackout)
             {
                 StartCoroutine(Blackout());
-                //5 second blackout
+                other.GetComponent<Rigidbody>().isKinematic = false;
             }
         }
     }

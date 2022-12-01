@@ -11,6 +11,8 @@ TagManager:
   - Whiteboard
   - BlueWire
   - RedWire
+  - Windmill
+  - Ball
   layers:
   - Default
   - TransparentFX

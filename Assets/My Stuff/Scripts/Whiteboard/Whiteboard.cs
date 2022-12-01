@@ -7,7 +7,7 @@ public class Whiteboard : MonoBehaviour
 {
     public Texture2D penTexture;
     public Texture mainTexture;
-    public Vector2 textureSize = new Vector2(2048, 2048);
+    public Vector2 textureSize = new Vector2(4096, 4096);
     void Start()
     {
         //this is done to referesh the drawings at the start
