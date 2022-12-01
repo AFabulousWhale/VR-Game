@@ -24,14 +24,14 @@ public class WhiteboardMarker : MonoBehaviour
 
     Quaternion lastTouchRot;
 
-    bool once = false;
-
-
     public GameObject grid;
     GridLayout gridLayout;
 
     public List<Vector3Int> desiredCoords = new List<Vector3Int>();
     public List<Vector3Int> playerCoords = new List<Vector3Int>();
+
+    public GameObject donut;
+    GameObject newDonut;
 
     void Start()
     {
@@ -50,46 +50,48 @@ public class WhiteboardMarker : MonoBehaviour
     {
         Draw();
 
-        if(checkCoords())
+        if(checkCoords() && newDonut == null)
         {
-            Debug.Log("YES");
+            newDonut = Instantiate(donut, this.transform.position, Quaternion.identity);
+            Rigidbody rb = newDonut.GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * 500);
         }
     }
 
     void AddDesiredCoords() //all the desired coords are the cell spaces where there is a dot that needs to be joined within the drawing by the player to complete the puzzle
     {
         //in order from 1-31 coords
-        desiredCoords.Add(new Vector3Int(22,24));
-        desiredCoords.Add(new Vector3Int(21, 23));
-        desiredCoords.Add(new Vector3Int(20, 23));
-        desiredCoords.Add(new Vector3Int(22, 22));
-        desiredCoords.Add(new Vector3Int(24, 20));
-        desiredCoords.Add(new Vector3Int(23, 19));
-        desiredCoords.Add(new Vector3Int(22, 19));
-        desiredCoords.Add(new Vector3Int(24, 18));
-        desiredCoords.Add(new Vector3Int(26, 16));
-        desiredCoords.Add(new Vector3Int(23, 15));
-        desiredCoords.Add(new Vector3Int(21, 13));
-        desiredCoords.Add(new Vector3Int(22, 11));
-        desiredCoords.Add(new Vector3Int(23, 10));
-        desiredCoords.Add(new Vector3Int(20, 9));
-        desiredCoords.Add(new Vector3Int(17, 8));
-        desiredCoords.Add(new Vector3Int(18, 7));
+        desiredCoords.Add(new Vector3Int(29,10));
+        desiredCoords.Add(new Vector3Int(27, 11));
+        desiredCoords.Add(new Vector3Int(26, 12));
+        desiredCoords.Add(new Vector3Int(25, 10));
+        desiredCoords.Add(new Vector3Int(22, 8));
+        desiredCoords.Add(new Vector3Int(21, 9));
+        desiredCoords.Add(new Vector3Int(20, 10));
+        desiredCoords.Add(new Vector3Int(19, 8));
         desiredCoords.Add(new Vector3Int(17, 6));
-        desiredCoords.Add(new Vector3Int(12, 6));
-        desiredCoords.Add(new Vector3Int(6, 8));
-        desiredCoords.Add(new Vector3Int(3, 12));
-        desiredCoords.Add(new Vector3Int(3, 17));
-        desiredCoords.Add(new Vector3Int(6, 22));
-        desiredCoords.Add(new Vector3Int(12, 15));
-        desiredCoords.Add(new Vector3Int(18, 26));
-        desiredCoords.Add(new Vector3Int(21, 15));
-        desiredCoords.Add(new Vector3Int(26, 24));
+        desiredCoords.Add(new Vector3Int(13, 9));
+        desiredCoords.Add(new Vector3Int(11, 11));
+        desiredCoords.Add(new Vector3Int(8, 10));
+        desiredCoords.Add(new Vector3Int(6, 9));
+        desiredCoords.Add(new Vector3Int(5, 12));
+        desiredCoords.Add(new Vector3Int(4, 16));
+        desiredCoords.Add(new Vector3Int(1, 14));
+        desiredCoords.Add(new Vector3Int(0, 16));
+        desiredCoords.Add(new Vector3Int(1, 20));
+        desiredCoords.Add(new Vector3Int(4, 27));
+        desiredCoords.Add(new Vector3Int(10, 30));
+        desiredCoords.Add(new Vector3Int(18, 30));
+        desiredCoords.Add(new Vector3Int(25, 27));
         desiredCoords.Add(new Vector3Int(30, 21));
-        desiredCoords.Add(new Vector3Int(31, 17));
-        desiredCoords.Add(new Vector3Int(30, 13));
-        desiredCoords.Add(new Vector3Int(27, 9));
-        desiredCoords.Add(new Vector3Int(21, 7));
+        desiredCoords.Add(new Vector3Int(31, 14));
+        desiredCoords.Add(new Vector3Int(30, 11));
+        desiredCoords.Add(new Vector3Int(28, 6));
+        desiredCoords.Add(new Vector3Int(24, 2));
+        desiredCoords.Add(new Vector3Int(18, 0));
+        desiredCoords.Add(new Vector3Int(11, 2));
+        desiredCoords.Add(new Vector3Int(5, 5));
+        desiredCoords.Add(new Vector3Int(1, 11));
     }
 
     void Draw()
@@ -100,11 +102,8 @@ public class WhiteboardMarker : MonoBehaviour
         {
             if (touch.transform.tag == "Whiteboard")
             {
-                if(!once)
-                {
-                    whiteboard = touch.transform.GetComponent<Whiteboard>();
-                    once = true;
-                }
+                whiteboard = touch.transform.GetComponent<Whiteboard>();
+
                 Debug.Log("hitW");
                 //grabs the touch position that you touch the pen to the whiteboard
                 touchPos = new Vector3(touch.textureCoord.x, touch.textureCoord.y);
@@ -135,7 +134,7 @@ public class WhiteboardMarker : MonoBehaviour
                     Vector3 gridTouch = new Vector3(0.970644f, touchPos.y, touchPos.x);
                     Vector3Int cellPosition = gridLayout.WorldToCell(gridTouch);
 
-                    if (!playerCoords.Contains(cellPosition)) //if the list doesn't already contain this position then add it
+                    if (!playerCoords.Contains(cellPosition) && desiredCoords.Contains(cellPosition)) //if the list doesn't already contain this position then add it
                     {
                         playerCoords.Add(cellPosition);
                     }
@@ -151,7 +150,6 @@ public class WhiteboardMarker : MonoBehaviour
                 return;
             }
         }
-        once = false;
         touchedLastFrame = false;
     }
 
