@@ -21,10 +21,10 @@ public class WinLose : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
-        {
-            Debug.Log("You won");
-            SceneManager.LoadScene("Win");
-        }
+        //if(other.tag == "Player")
+        //{
+        //    Debug.Log("You won");
+        //    SceneManager.LoadScene("Win");
+        //}
     }
 }
