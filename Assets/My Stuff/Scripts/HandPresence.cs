@@ -8,7 +8,9 @@ public class HandPresence : MonoBehaviour
     public InputDeviceCharacteristics controllerCharacteristics;    
     private InputDevice targetDevice;
     public Animator animator;
+
     public GameObject thisHand;
+    bool grabbedObject;
 
     //these are the same values that are used within the animator for the hand model
     public float indexValue;
@@ -70,6 +72,18 @@ public class HandPresence : MonoBehaviour
         else
         {
             UpdateHandAnimation();
+        }
+        if(!thisHand.activeSelf)
+        {
+            grabbedObject = true;
+        }
+        if(grabbedObject && thisHand.activeSelf)
+        {
+            grabbedObject = false;
+            //resets all the values when the hand is back after grabbing an object
+            animator.SetFloat("Index", 0);
+            animator.SetFloat("ThreeFingers", 0);
+            animator.SetFloat("Thumb", 0);
         }
     }
 }
