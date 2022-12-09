@@ -6,6 +6,7 @@ public class BatterySpawn : MonoBehaviour
 {
     public GameObject electricity;
     public GameObject battery;
+    public GameObject spawnEffect;
 
     public Consumable consumable;
 
@@ -28,5 +29,6 @@ public class BatterySpawn : MonoBehaviour
         newItem = Instantiate(battery, this.transform.position, Quaternion.identity);
         Rigidbody rb = newItem.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 500);
+        GameObject newEffect = Instantiate(spawnEffect, newItem.transform.position, Quaternion.identity);
     }
 }

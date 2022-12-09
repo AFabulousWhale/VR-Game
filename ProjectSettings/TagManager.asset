@@ -13,6 +13,7 @@ TagManager:
   - RedWire
   - Windmill
   - Ball
+  - Bow
   layers:
   - Default
   - TransparentFX

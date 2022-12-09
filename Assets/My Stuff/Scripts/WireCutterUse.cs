@@ -6,6 +6,11 @@ public class WireCutterUse : MonoBehaviour
 {
     public bool activated;
     public GameObject blackoutPP;
+    bool correctWireCut = false;
+
+    public GameObject ball;
+    public GameObject spawnEffect;
+    public GameObject ballSpawner;
 
     //these are triggered by the activation on the wire cutter in the XR Grabable component script using unity events
     public void ActivateTrigger()
@@ -72,11 +77,17 @@ public class WireCutterUse : MonoBehaviour
     bool blackout = false;
     void OnTriggerEnter(Collider other)
     {
-        if (activated)
+        if (activated && !correctWireCut)
         {
             if (other.tag == "RedWire")
-            {
+            { //spawns a ball when you cut the red wire and makes it so the other wires can't be cut
                 other.GetComponent<Rigidbody>().isKinematic = false;
+                GameObject newBall = Instantiate(ball, this.transform.position, Quaternion.identity);
+                Rigidbody rb = newBall.GetComponent<Rigidbody>();
+                rb.AddForce(transform.forward * 500);
+                GameObject newEffect = Instantiate(spawnEffect, newBall.transform.position, Quaternion.identity);
+                ballSpawner.SetActive(true);
+                correctWireCut = true;
             }
             if (other.tag == "BlueWire" && !blackout)
             {

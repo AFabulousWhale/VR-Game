@@ -36,7 +36,7 @@ public class EnterButton : ButtonChecker
     public void Checker()
     {
         //checks if the sequence submitted once pressed the enter button is the correct code specified below
-        if (base.text.text == "69928")
+        if (base.text.text == base.code)
         {
             Debug.Log("Correct");
             LadderSummon.ventActivate = true;

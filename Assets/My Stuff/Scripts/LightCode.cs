@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LightCode : MonoBehaviour
 {
@@ -9,7 +10,14 @@ public class LightCode : MonoBehaviour
 
     public GameObject spotLight;
     public GameObject green;
-    public GameObject message;
+    public TextMeshProUGUI message;
+
+    TextMeshProUGUI messageComponent;
+
+    private void Start()
+    {
+        messageComponent = message.GetComponent<TextMeshProUGUI>();
+    }
 
     //these two are being called by unity events on the socket components that they are supposed to lock in to
     public void BatteryInPlace(bool battery)
@@ -42,11 +50,11 @@ public class LightCode : MonoBehaviour
     {
         if (batteryIn && maskOn)
         {
-            message.SetActive(true);
+            messageComponent.enabled = true;
         }
         else
         {
-            message.SetActive(false);
+            messageComponent.enabled = false;
         }
     }
 }
