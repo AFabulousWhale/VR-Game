@@ -14,7 +14,7 @@ public class BatterySpawn : MonoBehaviour
 
     void Update()
     {
-        if(consumable.isFinished && !isSpawned)
+        if(!consumable.isFinished && !isSpawned)
         {
             StartCoroutine(SpawnBattery());
         }
