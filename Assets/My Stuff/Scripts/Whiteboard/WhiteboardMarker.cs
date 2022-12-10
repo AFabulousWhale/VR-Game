@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 
 public class WhiteboardMarker : MonoBehaviour
@@ -106,31 +107,35 @@ public class WhiteboardMarker : MonoBehaviour
 
                 Debug.Log("hitW");
                 //grabs the touch position that you touch the pen to the whiteboard
-                touchPos = new Vector3(touch.textureCoord.x, touch.textureCoord.y);
+                touchPos = new Vector2(touch.textureCoord.x, touch.textureCoord.y);
 
                 //gets the pixel size of the touch instead of the x/y coords
                 var x = (int)(touchPos.x * whiteboard.textureSize.x - penSize / 2);
                 var y = (int)(touchPos.y * whiteboard.textureSize.y - penSize / 2);
 
+                Debug.Log(touchedLastFrame);
+                Debug.Log($"touchx = {touch.textureCoord.x}, touchy = {touch.textureCoord.y}");
+                Debug.Log($"touchPos = {touchPos}");
+                Debug.Log($"x = {x}, y = {y}");
+
                 //checking if you're still in bounds of the whiteboard - dragging your pen and ending outside
-                if(y < 0 || y > whiteboard.textureSize.y || x < 0 || x > whiteboard.textureSize.x)
+                if (y < 0 || y > whiteboard.textureSize.y || x < 0 || x > whiteboard.textureSize.x)
                 {
                     return;
                 }
-
-                if(touchedLastFrame)
+                if (touchedLastFrame)
                 {
                     //sets that specific area to the size of the pen by the size of the pen and all of the set colours
                     whiteboard.penTexture.SetPixels(x, y, penSize, penSize, colors);
 
                     //dragging your pen and interpolates the gap when dragging
-                    for (float i = 0.01f; i < 1; i+= 0.001f)
+                    for (float i = 0.01f; i < 1; i += 0.001f)
                     {
                         var lerpX = (int)Mathf.Lerp(lastTouchPos.x, x, i);
                         var lerpY = (int)Mathf.Lerp(lastTouchPos.y, y, i);
                         whiteboard.penTexture.SetPixels(lerpX, lerpY, penSize, penSize, colors);
                     }
-                    //sets that position on the grid to where the marker is
+                    //sets that position on the grid to where the marker is in the world
                     Vector3 gridTouch = new Vector3(0.970644f, touchPos.y, touchPos.x);
                     Vector3Int cellPosition = gridLayout.WorldToCell(gridTouch);
 
@@ -143,7 +148,6 @@ public class WhiteboardMarker : MonoBehaviour
                     transform.rotation = lastTouchRot;
                     whiteboard.penTexture.Apply();
                 }
-
                 lastTouchPos = new Vector2(x, y);
                 lastTouchRot = transform.rotation;
                 touchedLastFrame = true;
@@ -152,6 +156,7 @@ public class WhiteboardMarker : MonoBehaviour
         }
         touchedLastFrame = false;
     }
+
 
     private bool checkCoords()
     {
